@@ -1,5 +1,13 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
+= form_tag movies_path, :method => :get do
+  = hidden_field_tag "sort_order", params[:sort_order]
+  Include:
+  - @all_ratings.each do |rating|
+    = rating
+    - checked = params[:ratings] ? params[:ratings].has_key?(rating) : true
+    = check_box_tag "ratings[#{rating}]", "1", checked
+  = submit_tag 'Refresh'
 
 %table#movies
   %thead
